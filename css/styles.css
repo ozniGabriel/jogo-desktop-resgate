@@ -15,22 +15,40 @@ body {
     border: 3px solid white;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
     justify-content: center;
     background: url('../imgs/fundo_game.jpg');
-    background-size: cover;
 }
 
 #inicio {
-    height: 100px;
+    width: 50%;
+    height: auto;
     display: flex;
+    align-self: center;
     flex-direction: column;
     justify-content: center;
     gap: 10px;
     color: aliceblue;
-    background-color: rgb(62, 68, 3);
+    background-color: rgb(57, 61, 20);
     padding: 10px;
+}
+
+.btns{
+    width: 30%;
+    margin: 0 auto;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(5, 14, 1);
+    color: aliceblue;
+}
+
+.btns:hover{
+    background-color: rgb(188, 214, 177);
+    color: black;
 }
 
 #pontuacao {
@@ -44,14 +62,19 @@ body {
     background-color: black;
     font-size: larger;
     font-family: monospace;
+    font-weight: 900;
     visibility: hidden;
 }
 
-#mortes{
+#salvos{
+    color: rgb(57, 250, 32);
+}
+
+#mortes {
     color: red;
 }
 
-.jogador {     
+.jogador {
     width: 256px;
     height: 66px;
     position: absolute;
@@ -59,7 +82,9 @@ body {
     top: 179px;
     margin: 0px;
     background-image: url('../imgs/apache.png');
+    border: 2px solid white;
 }
+
 
 .amigo {
     width: 44px;
@@ -79,7 +104,7 @@ body {
     margin: 0px;
     padding: 0px;
     background-image: url('../imgs/inimigo1.png');
-
+    border: 2px solid red;
 }
 
 .inimigo2 {
@@ -89,6 +114,7 @@ body {
     left: 750px;
     top: 384px;
     background-image: url('../imgs/inimigo2.png');
+    border: 2px solid red;
 }
 
 .aguardar {
@@ -101,7 +127,7 @@ body {
     background-image: url('../imgs/disparo.png');
 }
 
-.solo{
+.solo {
     position: absolute;
     top: 457px;
     width: 100%;

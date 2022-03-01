@@ -12,6 +12,7 @@ function inicio() {
     let batidas = 0
     let amigosCapturados = 0
     let recomecar = false
+    let fundoGame = 0
 
     // OCULTANDO A TELA DE INICIO
     document.querySelector('#inicio').style.display = 'none'
@@ -20,14 +21,14 @@ function inicio() {
 
     // INSTANCIANDO A DIV PRINCIPAL
     let divElementos = document.querySelector('#elementos')
-    // INSTANCIANDO O SPAN BATIDAS
-    let numBatidas = document.querySelector('#numBatidas')
     // INSTANCIANDO O SPAN MORTES
     let numCapturados = document.querySelector('#numCapturados')
     // INSTANCIANDO O SPAN AMIGOS SALVOS
     let numSalvos = document.querySelector('#numSalvos')
     // INSTANCIANDO O SPAN INIMIGOS ABATIDOS
     let numAbatidos = document.querySelector('#numAbatidos')
+
+    let jogo = document.querySelector('#jogo')
 
     // CRIAÇÃO DOS ELEMENTOS DO JOGO
     let jogador = document.createElement('div')
@@ -38,7 +39,7 @@ function inicio() {
     let solo = document.createElement('div')
 
     // ARRAY CRIADO PARA DEIXAR O CÓDIGO MENOS VERBOSO LÁ NA FRENTE
-    const ele = [
+    const elementos = [
         { nome: jogador, classe: 'jogador' },
         { nome: amigo, classe: 'amigo' },
         { nome: inimigo1, classe: 'inimigo1' },
@@ -48,15 +49,20 @@ function inicio() {
     ]
 
     // ADICIONANDO SUAS RESPECTIVAS CLASSES CSS
-    ele.forEach(item => item.nome.classList.add(item.classe))
+    elementos.forEach(item => item.nome.classList.add(item.classe))
 
     // ADICIONANDO OS ELEMENTOS NA PÁGINA
-    ele.forEach(item => {divElementos.appendChild(item.nome)})
+    elementos.forEach(item => {divElementos.appendChild(item.nome)})
 
     // OBJETIVO DO JOGO
     alert(
-        'Missão: Garanta que 10 aliados cheguem ao solo em segurança antes que 20 sejam capturados! Difícil de mais? Hahaha'
+        'Missão: Garanta que 10 aliados cheguem ao solo em segurança antes que 25 sejam capturados! Evite colisões.'
     )
+
+    function moveFundo(){
+        fundoGame += 0.1
+        document.querySelector('#jogo').style = `background-position: ${fundoGame}%`
+    } // FIM DA FUNÇÃO MOVE-FUNDO
     
     function moveJogador() {
         document.onkeydown = e => {
@@ -90,7 +96,7 @@ function inicio() {
 
     function moveInimigos() {
         velocidadeInimigo1 -= 2
-        velocidadeInimigo2 -= 1
+        velocidadeInimigo2 -= 2
         inimigo1.style.left = `${velocidadeInimigo1}px`
         inimigo2.style.left = `${velocidadeInimigo2}px`
         if (velocidadeInimigo1 === -50) {
@@ -104,6 +110,7 @@ function inicio() {
     function reiniciarInimigo1() {
         alturaAleatoriaInimigo = Math.floor(Math.random() * 300)
         velocidadeInimigo1 = 690
+        inimigo1.style.left = `${velocidadeInimigo1}px`
         inimigo1.style.top = `${alturaAleatoriaInimigo}px`
     } // FIM DA FUNÇÃO REINICIAR INIMIGO1
 
@@ -150,15 +157,12 @@ function inicio() {
         let colisao2 = $(jogador).collision($(inimigo2))
         if (colisao.length > 0) {
             colisao = 0
-            batidas++
-            numBatidas.innerHTML = batidas
-            reiniciarInimigo1()
+            finalizar(true)
+            
         }
         if (colisao2.length > 0) {
             colisao2 = 0
-            batidas++
-            numBatidas.innerHTML = batidas
-            reiniciarInimigo2()
+            finalizar(true)
         }
     } // FIM DA FUNÇÃO COLISAO1
 
@@ -173,6 +177,7 @@ function inicio() {
             reiniciarAmigo()
         }
         if (colisao4.length > 0) {
+            amigo.classList.add('morte')
             colisao4 = 0
             amigosCapturados++
             numCapturados.innerHTML = amigosCapturados
@@ -200,7 +205,6 @@ function inicio() {
         }
     } // FIM DA FUNÇÃO COLISAO5
 
-
     // BATIDA DO AMIGO COM O SOLO
     function colisao4() {
         let colisao7 = $(amigo).collision($(solo))
@@ -212,7 +216,7 @@ function inicio() {
         }
     } // FIM DA FUNÇÃO COLISAO4
 
-    function finalizar() {
+    function finalizar(bateu) {
         if (amigosSalvos == 10 && amigosCapturados < 25) {
             alert('Missão Concluida')
             recomecar = true
@@ -221,19 +225,24 @@ function inicio() {
             alert('Falhou Soldado, perdeeeu.')
             recomecar = true
         }
-    }
+        if(bateu){
+            bateu = false
+            recomecar = true
+            alert('Cabummm! n foi dessa vez')   
+        }
+    } // FIM DA FUNÇÃO FINALIZAR
 
     function novoJogo() {
         numAbatidos.innerHTML = 0
         numSalvos.innerHTML = 0
-        numBatidas.innerHTML = 0
         numCapturados.innerHTML = 0
         // MOSTRANDO A TELA DE INICIO
         document.querySelector('#inicio').style.display = 'flex'
-    }
+    } // FIM DA FUNÇÃO NOVO-JOGO
 
     function gameLoop() {
         let loop = setInterval(() => {
+            moveFundo()
             moveJogador()
             moveAmigo()
             moveInimigos()
@@ -245,14 +254,15 @@ function inicio() {
             if (recomecar) {
                 clearInterval(loop)
                 recomecar = false
-                ele.forEach(item => divElementos.removeChild(item.nome))
+                elementos.forEach(item => divElementos.removeChild(item.nome))
                 return novoJogo()
             }
         }, 10)
     } // FIM DA FUNÇÃO GAME-LOOP
 
-    // INVOCANDO A FUNÇÃO PRINCIPLA DO JOGO
+    // INVOCANDO A FUNÇÃO PRINCIPAL DO JOGO
     gameLoop()
+
 } // FIM DA FUNÇÃO INICIO
 
-document.querySelector('#inicio').addEventListener('click', inicio)
+document.querySelector('#novoJogo').addEventListener('click', inicio)
