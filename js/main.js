@@ -9,7 +9,6 @@ function inicio() {
     let permitirDisparo = true
     let inimigosAbatidos = 0
     let amigosSalvos = 0
-    let batidas = 0
     let amigosCapturados = 0
     let recomecar = false
     let fundoGame = 0
@@ -19,16 +18,17 @@ function inicio() {
     //EXIBINDO A PONTUACAO
     document.querySelector('#pontuacao').style.visibility = 'visible'
 
-    // INSTANCIANDO A DIV PRINCIPAL
+    // INSTANCIANDO ELEMENTOS DO JOGO
     let divElementos = document.querySelector('#elementos')
-    // INSTANCIANDO O SPAN MORTES
     let numCapturados = document.querySelector('#numCapturados')
-    // INSTANCIANDO O SPAN AMIGOS SALVOS
     let numSalvos = document.querySelector('#numSalvos')
-    // INSTANCIANDO O SPAN INIMIGOS ABATIDOS
     let numAbatidos = document.querySelector('#numAbatidos')
-
     let jogo = document.querySelector('#jogo')
+    let somPrincipal = document.querySelector('#musica')
+    let somExplosao = document.querySelector('#explosao')
+    let somDisparo = document.querySelector('#disparo')
+ /*    let somDerrota = document.querySelector('#derrota')
+    let somVitoria = document.querySelector('#vitoria') */
 
     // CRIAÇÃO DOS ELEMENTOS DO JOGO
     let jogador = document.createElement('div')
@@ -37,6 +37,7 @@ function inicio() {
     let inimigo2 = document.createElement('div')
     let projetil = document.createElement('div')
     let solo = document.createElement('div')
+    
 
     // ARRAY CRIADO PARA DEIXAR O CÓDIGO MENOS VERBOSO LÁ NA FRENTE
     const elementos = [
@@ -136,6 +137,7 @@ function inicio() {
 
     function disparo() {
         if (permitirDisparo) {
+            somDisparo.play()
             projetil.style.top = `${alturaJogador + 50}px`
             projetil.style.visibility = 'visible'
             // BLOQUEANDO DISPAROS MULTIPLOS, POIS SÓ DEVO DISPARAR APÓS O TIRO SAIR DA TELA
@@ -217,15 +219,17 @@ function inicio() {
     } // FIM DA FUNÇÃO COLISAO4
 
     function finalizar(bateu) {
+        somPrincipal.pause()
         if (amigosSalvos == 10 && amigosCapturados < 25) {
             alert('Missão Concluida')
             recomecar = true
         }
-        if (amigosCapturados == 25 && amigosSalvos < 10) {
+        if (amigosCapturados == 1 && amigosSalvos < 10) {
             alert('Falhou Soldado, perdeeeu.')
             recomecar = true
         }
         if(bateu){
+            somExplosao.play()
             bateu = false
             recomecar = true
             alert('Cabummm! n foi dessa vez')   
@@ -242,6 +246,7 @@ function inicio() {
 
     function gameLoop() {
         let loop = setInterval(() => {
+            somPrincipal.play()
             moveFundo()
             moveJogador()
             moveAmigo()

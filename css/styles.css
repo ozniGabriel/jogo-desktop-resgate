@@ -83,8 +83,20 @@ body {
     margin: 0px;
     background-image: url('../imgs/apache.png');
     border: 2px solid white;
+    animation-name: moverHeliceJogador;
+    animation-iteration-count: infinite;
+    animation-duration: 0.2s;
 }
 
+@keyframes moverHeliceJogador {
+    from { background-image: url('../imgs/apache.png');}
+    to { background-image: url('../imgs/apache2.png');}
+}
+
+@keyframes moverHeliceInimigo {
+    from { background-image: url('../imgs/inimigo1.png');}
+    to { background-image: url('../imgs/inimigo1-2.png');}
+}
 
 .amigo {
     width: 44px;
@@ -105,6 +117,9 @@ body {
     padding: 0px;
     background-image: url('../imgs/inimigo1.png');
     border: 2px solid red;
+    animation-name: moverHeliceInimigo;
+    animation-iteration-count: infinite;
+    animation-duration: 0.2s;
 }
 
 .inimigo2 {
