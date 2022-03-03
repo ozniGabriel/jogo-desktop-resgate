@@ -38,7 +38,6 @@ function inicio() {
     let projetil = document.createElement('div')
     let solo = document.createElement('div')
     
-
     // ARRAY CRIADO PARA DEIXAR O CÓDIGO MENOS VERBOSO LÁ NA FRENTE
     const elementos = [
         { nome: jogador, classe: 'jogador' },
@@ -57,7 +56,7 @@ function inicio() {
 
     // OBJETIVO DO JOGO
     alert(
-        'Missão: Garanta que 10 aliados cheguem ao solo em segurança antes que 25 sejam capturados! Evite colisões.'
+        'Bravo2000 na escuta? Garanta que 10 aliados cheguem ao solo em segurança antes que 25 sejam capturados!\n\n Evite colisões com o Inimigo.'
     )
 
     function moveFundo(){
@@ -221,18 +220,18 @@ function inicio() {
     function finalizar(bateu) {
         somPrincipal.pause()
         if (amigosSalvos == 10 && amigosCapturados < 25) {
-            alert('Missão Concluida')
+            alert('Yeah, sua missão foi concluída! Parabéns Bravo2000.')
             recomecar = true
         }
-        if (amigosCapturados == 1 && amigosSalvos < 10) {
-            alert('Falhou Soldado, perdeeeu.')
+        if (amigosCapturados == 25 && amigosSalvos < 10) {
+            alert('Aliados capturados, sua missão foi comprometida. Isso será uma mancha na sua reputação Bravo2000.')
             recomecar = true
         }
         if(bateu){
             somExplosao.play()
             bateu = false
             recomecar = true
-            alert('Cabummm! n foi dessa vez')   
+            alert('Kabummm! Bravo2000 foi abatido.')   
         }
     } // FIM DA FUNÇÃO FINALIZAR
 
@@ -271,3 +270,6 @@ function inicio() {
 } // FIM DA FUNÇÃO INICIO
 
 document.querySelector('#novoJogo').addEventListener('click', inicio)
+document.querySelector('#instrucoes').addEventListener('click', ()=>{
+    alert("Controles do Jogo:\n\n * Para movimentar o Jogador: Utilize as setas do teclado (CIMA/BAIXO)\n * Para atirar: Utilize a tecla ESPAÇO")
+})
