@@ -27,8 +27,9 @@ function inicio() {
     let somPrincipal = document.querySelector('#musica')
     let somExplosao = document.querySelector('#explosao')
     let somDisparo = document.querySelector('#disparo')
- /*    let somDerrota = document.querySelector('#derrota')
-    let somVitoria = document.querySelector('#vitoria') */
+    let somCapturado = document.querySelector('#capturado')
+    let somResgatado = document.querySelector('#resgatado')
+
 
     // CRIAÇÃO DOS ELEMENTOS DO JOGO
     let jogador = document.createElement('div')
@@ -172,12 +173,14 @@ function inicio() {
         let colisao3 = $(amigo).collision($(inimigo1))
         let colisao4 = $(amigo).collision($(inimigo2))
         if (colisao3.length > 0) {
+            somCapturado.play()
             colisao3 = 0
             amigosCapturados++
             numCapturados.innerHTML = amigosCapturados
             reiniciarAmigo()
         }
         if (colisao4.length > 0) {
+            somCapturado.play()
             amigo.classList.add('morte')
             colisao4 = 0
             amigosCapturados++
@@ -210,6 +213,7 @@ function inicio() {
     function colisao4() {
         let colisao7 = $(amigo).collision($(solo))
         if (colisao7.length > 0) {
+            somResgatado.play()
             colisao7 = 0
             amigosSalvos++
             numSalvos.innerHTML = amigosSalvos
@@ -224,7 +228,7 @@ function inicio() {
             recomecar = true
         }
         if (amigosCapturados == 25 && amigosSalvos < 10) {
-            alert('Aliados capturados, sua missão foi comprometida. Isso será uma mancha na sua reputação Bravo2000.')
+            alert('25 Aliados capturados, sua missão foi comprometida. Isso será uma mancha na sua reputação Bravo2000.')
             recomecar = true
         }
         if(bateu){
@@ -270,6 +274,7 @@ function inicio() {
 } // FIM DA FUNÇÃO INICIO
 
 document.querySelector('#novoJogo').addEventListener('click', inicio)
+
 document.querySelector('#instrucoes').addEventListener('click', ()=>{
     alert("Controles do Jogo:\n\n * Para movimentar o Jogador: Utilize as setas do teclado (CIMA/BAIXO)\n * Para atirar: Utilize a tecla ESPAÇO")
 })
