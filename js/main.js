@@ -96,14 +96,14 @@ function inicio() {
     } // FIM DA FUNÇÃO MOVE-AMIGO
 
     function moveInimigos() {
-        velocidadeInimigo1 -= 2
-        velocidadeInimigo2 -= 2
+        velocidadeInimigo1 -= 3
+        velocidadeInimigo2 -= 3
         inimigo1.style.left = `${velocidadeInimigo1}px`
         inimigo2.style.left = `${velocidadeInimigo2}px`
-        if (velocidadeInimigo1 === -50) {
+        if (velocidadeInimigo1 <= -50) {
             reiniciarInimigo1()
         }
-        if (velocidadeInimigo2 === -20) {
+        if (velocidadeInimigo2 <= 0) {
             reiniciarInimigo2()
         }
     } // FIM DA FUNÇÃO MOVE-INIMIGOS
