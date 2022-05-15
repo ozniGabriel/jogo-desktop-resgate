@@ -67,6 +67,7 @@ function inicio() {
     
     function moveJogador() {
         document.onkeydown = e => {
+            e.preventDefault()
             if (e.key === ' ') {
                 disparo()
             }
@@ -96,8 +97,8 @@ function inicio() {
     } // FIM DA FUNÇÃO MOVE-AMIGO
 
     function moveInimigos() {
-        velocidadeInimigo1 -= 3
-        velocidadeInimigo2 -= 3
+        velocidadeInimigo1 -= 2
+        velocidadeInimigo2 -= 2
         inimigo1.style.left = `${velocidadeInimigo1}px`
         inimigo2.style.left = `${velocidadeInimigo2}px`
         if (velocidadeInimigo1 <= -50) {
@@ -223,7 +224,7 @@ function inicio() {
 
     function finalizar(bateu) {
         somPrincipal.pause()
-        if (amigosSalvos == 10 && amigosCapturados < 25) {
+        if (amigosSalvos == 10 && amigosCapturados < 30) {
             alert('Yeah, sua missão foi concluída! Parabéns Bravo2000.')
             recomecar = true
         }
